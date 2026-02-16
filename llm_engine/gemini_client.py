@@ -15,6 +15,7 @@ class GeminiClient(BaseLLMProvider):
 
     def __init__(
         self,
+        api_key: str,
         user_prompt_template: str,
         system_prompt: Optional[str] = None,
         model: str = 'gemini-1.5-flash',
@@ -24,6 +25,8 @@ class GeminiClient(BaseLLMProvider):
 
         Parameters
         ----------
+        api_key : str
+            gemini API key
         user_prompt_template : str
             Template string used to generate user prompts.
         system_prompt : str, optional
@@ -41,12 +44,7 @@ class GeminiClient(BaseLLMProvider):
             system_prompt=system_prompt,
         )
 
-        api_key = os.getenv('GEMINI_API_KEY')
-        if not api_key:
-            raise ValueError(
-                'GEMINI_API_KEY not set in environment variables!'
-            )
-
+        api_key = api_key
         self.client = genai.Client(api_key=api_key)
         self.model = model
 
