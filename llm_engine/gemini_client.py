@@ -55,13 +55,8 @@ class GeminiClient(BaseLLMProvider):
         temperature: float = 0
     ) -> str:
         '''
-        Generate a response from the Gemini model.
-
-        Gemini does not natively support role-based messages
-        in the same way as OpenAI or Ollama. Therefore, the
-        system prompt is prepended to the user prompt in a
-        controlled and explicit format.
-
+        Generate a response from the Gemini model using user and system prompt
+        
         Parameters
         ----------
         user_prompt : str
