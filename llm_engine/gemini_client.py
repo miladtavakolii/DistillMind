@@ -33,17 +33,11 @@ class GeminiClient(BaseLLMProvider):
             System-level instruction defining model behavior.
         model : str, default='gemini-1.5-flash'
             Name of the Gemini model to use.
-
-        Raises
-        ------
-        ValueError
-            If the GEMINI_API_KEY environment variable is not set.
         '''
         super().__init__(
             user_prompt_template=user_prompt_template,
             system_prompt=system_prompt,
         )
-
         api_key = api_key
         self.client = genai.Client(api_key=api_key)
         self.model = model
@@ -55,8 +49,8 @@ class GeminiClient(BaseLLMProvider):
         temperature: float = 0
     ) -> str:
         '''
-        Generate a response from the Gemini model using user and system prompt
-        
+        Generate a response from the Gemini model using user and system prompt.
+
         Parameters
         ----------
         user_prompt : str
