@@ -1,0 +1,34 @@
+Generate {n_samples} Persian samples for emotion classification.
+
+Target emotions:
+- Fear
+- Social isolation
+- Withdrawal from social interaction
+
+Dataset requirements:
+
+Each sample must contain:
+- "text": natural Persian text
+- "reason": explanation showing how emotion is inferred
+- "label": one emotion from the list
+
+Text diversity requirements:
+- Mix short, medium, and longer texts.
+- Include direct and indirect emotional expression.
+- Use diverse daily-life contexts:
+  work, family, school, friendship, loneliness, uncertainty, home, street, social media chat, online forum, etc.
+- Some samples should express emotion subtly.
+- Avoid repeated scenarios or sentence openings.
+
+Reason requirements:
+- Mention cues such as behavior, thoughts, avoidance, tone, or context.
+- Do not simply restate the label.
+
+Output strictly as JSON array:
+[
+  {
+    "text": "...",
+    "reason": "..."
+    "label": "...",
+  }
+]
