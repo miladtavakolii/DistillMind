@@ -1,6 +1,6 @@
 import json
 import os
-from typing import Dict, List, Optional
+from typing import Any
 
 from llm_engine.engine import LLMEngine
 from utils.json_utils import extract_json
@@ -33,7 +33,7 @@ class LLMDataGenerator:
         '''
         self.engine = engine
 
-    def generate_batch(self, **fields) -> str:
+    def generate_batch(self, **fields: Any) -> str:
         '''
         Generate one batch of samples.
 
@@ -53,13 +53,12 @@ class LLMDataGenerator:
 
         return raw_output
 
-
     def generate_dataset(
         self,
         output_dir: str,
         total_samples: int,
         batch_size: int,
-        **fields,
+        **fields: Any,
     ) -> None:
         '''
         Generate dataset and save to disk.
@@ -94,7 +93,7 @@ class LLMDataGenerator:
                 **fields,
                 n_samples=current_batch,
             )
-            
+
             exrtacted_json = extract_json(batch)
 
             file_path = os.path.join(

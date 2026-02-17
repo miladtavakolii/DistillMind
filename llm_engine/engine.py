@@ -59,7 +59,7 @@ class LLMEngine:
         print(f'[Engine] Switched to provider #{self.current_provider_idx}')
 
 
-    def generate(self, **fields) -> Dict:
+    def generate(self, **fields: Dict) -> str:
         '''
         Generate structured output using the active provider.
 

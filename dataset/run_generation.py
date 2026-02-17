@@ -112,7 +112,7 @@ class DatasetGenerationManager:
         )
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description='LLM Dataset Generator')
 
     parser.add_argument('--phase', type=str, required=True,
