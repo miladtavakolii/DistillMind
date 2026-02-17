@@ -7,7 +7,7 @@ import json
 
 class BaseLLMProvider(ABC):
     '''
-    Abstract base class for sentiment-analysis LLM providers.
+    Abstract base class for LLM providers.
 
     This class defines the shared logic for:
         - Loading and storing prompt templates
@@ -22,6 +22,9 @@ class BaseLLMProvider(ABC):
     prompt_template:
         The raw prompt template loaded from configuration or file.
         It may contain placeholders to be filled using `build_prompt`.
+    system_prompt:
+        System-level instruction defining the model's role,
+        behavior, and output constraints.
     '''
 
     def __init__(self,
