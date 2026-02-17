@@ -26,9 +26,9 @@ Reason requirements:
 
 Output strictly as JSON array:
 [
-  {
+  {{
     "text": "...",
     "reason": "..."
     "label": "...",
-  }
+  }}
 ]
