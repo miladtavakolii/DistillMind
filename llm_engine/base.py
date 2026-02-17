@@ -129,9 +129,9 @@ class BaseLLMProvider(ABC):
 
         raise ValueError(f'[ERROR] No valid JSON found in model output:\n {text}')
 
-    def analyze(self, temperature: float, **fields: Any) -> dict:
+    def execute(self, temperature: float, **fields: Any) -> dict:
         '''
-        High-level workflow for performing sentiment analysis with an LLM provider.
+        High-level workflow for get responce from LLM provider.
 
         Steps:
             1. Construct prompt using fields
@@ -146,11 +146,6 @@ class BaseLLMProvider(ABC):
         Returns
         -------
         Structured sentiment analysis result.
-
-        Raises
-        ------
-        ValueError:
-            If the model returns invalid or unparsable JSON.
         '''
         user_prompt = self.build_prompt(**fields)
         raw_output = self.generate(
@@ -159,8 +154,4 @@ class BaseLLMProvider(ABC):
             temperature=temperature
         )
 
-        try:
-            return self.extract_json(raw_output)
-        except json.JSONDecodeError:
-            raise ValueError(
-                f'[ERROR] Provider returned invalid JSON:\n{raw_output}')
+        return raw_output
