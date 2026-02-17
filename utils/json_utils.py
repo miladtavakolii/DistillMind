@@ -1,7 +1,7 @@
 import json
 import re
 
-def extract_json(self, text: str) -> dict:
+def extract_json(text: str) -> dict:
     '''
     Extract and parse a valid JSON object from arbitrary LLM output.
 
