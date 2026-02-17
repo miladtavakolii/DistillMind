@@ -67,13 +67,15 @@ class DatasetGenerationManager:
 
         # Build providers
         self.providers = self._build_providers()
-        self.engine = LLMEngine(providers=self.providers, temperature=self.temperature)
+        self.engine = LLMEngine(providers=self.providers,
+                                temperature=self.temperature)
         self.generator = LLMDataGenerator(self.engine)
 
     def _build_providers(self) -> List[BaseLLMProvider]:
         '''Instantiate providers from API keys.'''
         if not os.path.exists(self.providers_config_path):
-            raise FileNotFoundError(f"Providers config not found: {self.providers_config_path}")
+            raise FileNotFoundError(
+                f"Providers config not found: {self.providers_config_path}")
 
         with open(self.providers_config_path, 'r', encoding='utf-8') as f:
             config = json.load(f)
@@ -85,10 +87,10 @@ class DatasetGenerationManager:
             if not model_name or not api_key:
                 continue
             provider = self.provider_class(
+                api_key=api_key,
+                model_name=model_name,
                 user_prompt_template=self.user_prompt,
                 system_prompt=self.system_prompt,
-                api_key=api_key,
-                model=model_name
             )
             providers.append(provider)
         if not providers:
@@ -130,7 +132,6 @@ def main() -> None:
     parser.add_argument('--providers_config', type=str, required=True,
                         help='Path to JSON file with API keys and models')
 
-
     args = parser.parse_args()
 
     manager = DatasetGenerationManager(
@@ -146,4 +147,4 @@ def main() -> None:
 
 
 if __name__ == '__main__':
-    main()  
+    main()

@@ -13,15 +13,20 @@ class OllamaClient(BaseLLMProvider):
 
     def __init__(
         self,
+        api_key: str,
+        model_name: str,
         user_prompt_template: str,
         system_prompt: Optional[str] = None,
-        model: str = "gemma3:4b-it-qat",
     ):
         '''
         Initialize the Ollama client.
 
         Parameters
         ----------
+        api_key : str
+            not using for ollama
+        model_name : str
+            model name that use for responce
         user_prompt_template : str
             Template for user prompts.
         system_prompt : str, optional
@@ -30,11 +35,13 @@ class OllamaClient(BaseLLMProvider):
             Name of the Ollama model to use.
         '''
         super().__init__(
+            api_key=api_key,
+            model_name=model_name,
             user_prompt_template=user_prompt_template,
             system_prompt=system_prompt,
         )
         self.client = Client()
-        self.model = model
+        self.model_name = model_name
 
     def generate(
         self,
@@ -71,7 +78,7 @@ class OllamaClient(BaseLLMProvider):
         })
 
         response = self.client.chat(
-            model=self.model,
+            model=self.model_name,
             messages=messages,
             stream=False,
             options={"temperature": temperature}

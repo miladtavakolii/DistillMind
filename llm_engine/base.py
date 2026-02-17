@@ -1,8 +1,5 @@
 from abc import ABC, abstractmethod
 from typing import Any, Optional
-import json
-import re
-import json
 
 
 class BaseLLMProvider(ABC):
@@ -28,6 +25,8 @@ class BaseLLMProvider(ABC):
     '''
 
     def __init__(self,
+                 api_key: str,
+                 model_name: str,
                  user_prompt_template: str,
                  system_prompt: Optional[str] = None,
                  ):
@@ -36,6 +35,10 @@ class BaseLLMProvider(ABC):
 
         Parameters
         ----------
+        api_key : str
+            API key for providers that needs
+        model_name : str
+            model name that use for responce
         user_prompt_template : str
             Template string used to generate the user prompt.
             Can contain placeholders such as `{text}`.
