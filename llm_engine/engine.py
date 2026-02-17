@@ -1,48 +1,86 @@
+from typing import List, Dict
 from llm_engine.base import BaseLLMProvider
 
 
 class LLMEngine:
     '''
-    High-level sentiment analysis orchestrator.
+    High-level orchestration engine for LLM providers.
 
-    This class serves as a unified interface that delegates the actual
-    LLM inference to a provider implementing `BaseSentimentProvider`.
-    It is model-agnostic and can work with Ollama, Gemini, OpenAI, etc.
-
-    Attributes
-    ----------
-    provider:
-        The backend LLM provider responsible for analyzing text.
+    This engine:
+        - Manages multiple providers (API keys or backends)
+        - Automatically switches providers when one fails
+        - Provides a unified interface for LLM generation
     '''
 
-    def __init__(self, provider: BaseLLMProvider, temperature: float = 0):
+    def __init__(
+        self,
+        providers: List[BaseLLMProvider],
+        temperature: float = 0.0,
+    ) -> None:
         '''
-        Initialize the sentiment engine.
+        Initialize engine.
 
         Parameters
         ----------
-        provider:
-            An instance of a provider capable of generating and parsing
-            sentiment results.
+        providers:
+            List of LLM providers (can differ by API keys or models).
+
+        temperature:
+            Sampling temperature used during generation.
         '''
+        if not providers:
+            raise ValueError('At least one provider is required.')
+
+        self.providers = providers
         self.temperature = temperature
-        self.provider = provider
+        self.current_provider_idx = 0
 
-    def analyze(self, text: str) -> dict[str, str]:
+
+    @property
+    def provider(self) -> BaseLLMProvider:
+        '''Return current active provider.'''
+        return self.providers[self.current_provider_idx]
+
+
+    def rotate_provider(self) -> None:
         '''
-        Run full analysis on a new.
+        Switch to next provider.
 
-        This method passes normalized article metadata to the underlying
-        provider and returns the parsed JSON sentiment result.
+        Raises
+        ------
+        RuntimeError:
+            If all providers fail.
+        '''
+        self.current_provider_idx += 1
+
+        if self.current_provider_idx >= len(self.providers):
+            raise RuntimeError('All LLM providers failed.')
+
+        print(f'[Engine] Switched to provider #{self.current_provider_idx}')
+
+
+    def generate(self, **fields) -> Dict:
+        '''
+        Generate structured output using the active provider.
 
         Parameters
         ----------
-        title: news text.
+        **fields:
+            Fields used to fill prompt templates
+            (e.g., text, seed, instructions).
 
-        Returns:
-        Structured sentiment analysis result.
+        Returns
+        -------
+        Dict
+            Parsed JSON output returned by provider.
         '''
-        return self.provider.analyze(
-            temperature=self.temperature,
-            text=text,
-        )
+        while True:
+            try:
+                return self.provider.execute(
+                    temperature=self.temperature,
+                    **fields,
+                )
+
+            except Exception as exc:
+                print('[Engine] Provider failed:', exc)
+                self.rotate_provider()
