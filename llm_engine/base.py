@@ -86,7 +86,7 @@ class BaseLLMProvider(ABC):
         '''
         return self.user_prompt_template.format(**kwargs)
 
-    def execute(self, temperature: float, **fields: Any) -> dict:
+    def execute(self, temperature: float, **fields: Any) -> str:
         '''
         High-level workflow for get responce from LLM provider.
 
@@ -102,7 +102,8 @@ class BaseLLMProvider(ABC):
 
         Returns
         -------
-        Structured sentiment analysis result.
+        str
+            Structured sentiment analysis result.
         '''
         user_prompt = self.build_prompt(**fields)
         raw_output = self.generate(

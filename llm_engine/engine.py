@@ -71,8 +71,8 @@ class LLMEngine:
 
         Returns
         -------
-        Dict
-            Parsed JSON output returned by provider.
+        str
+            raw text output returned by provider.
         '''
         while True:
             try:
