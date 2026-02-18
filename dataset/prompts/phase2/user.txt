@@ -1,16 +1,65 @@
 Generate {n_samples} Persian samples for emotion classification.
 
-Target emotions:
-- Fear
-- Social isolation
-- Withdrawal from social interaction
+Target labels:
+- Withdrawal
+- fear
+- other
+
+Detailed label definitions:
+
+Withdrawal:
+Texts where the person shows behavioral or psychological withdrawal from social interaction or participation.
+
+Typical signals include:
+- Avoiding meetings, gatherings, or conversations
+- Ignoring messages or calls
+- Preferring isolation over interaction
+- Canceling plans repeatedly
+- Feeling too tired or unwilling to interact with others
+- Emotional distancing from friends or family
+- Desire to stay alone instead of joining social activities
+
+Important notes:
+- Withdrawal focuses on avoidance behavior, not necessarily sadness or fear.
+- Person may not explicitly say they are avoiding people; avoidance can be implied.
+- Social disengagement or reduced participation is key.
+
+fear:
+Texts where fear, anxiety, worry, or anticipation of danger or negative outcomes is dominant.
+
+Typical signals include:
+- Fear of events, situations, or outcomes
+- Anxiety about health, work, future, or safety
+- Physical or emotional tension caused by worry
+- Expectation that something bad might happen
+- Nervousness or panic before events
+- Fear-driven hesitation or stress
+
+Important notes:
+- Fear may be explicit or implied.
+- Anxiety about uncertain outcomes counts as fear.
+- Fear does not require social withdrawal; it can occur while still interacting socially.
+
+other:
+Texts that do not clearly express Withdrawal or fear.
+
+Typical examples include:
+- Neutral daily experiences
+- Happiness, sadness, anger, excitement, nostalgia, or mixed emotions
+- Descriptions without dominant fear or social avoidance
+- Normal social participation without avoidance signals
+
+Important notes:
+- Use this label only when fear or withdrawal cues are absent or weak.
+- If signals are ambiguous, prefer "other".
+
 
 Dataset requirements:
 
 Each sample must contain:
 - "text": natural Persian text
 - "reason": explanation showing how emotion is inferred
-- "label": one emotion from the list
+- "label": one label from the list above
 
 Text diversity requirements:
 - Mix short, medium, and longer texts.
@@ -28,7 +77,7 @@ Output strictly as JSON array:
 [
   {{
     "text": "...",
-    "reason": "..."
-    "label": "...",
+    "reason": "...",
+    "label": "..."
   }}
 ]
