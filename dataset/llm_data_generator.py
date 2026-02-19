@@ -80,7 +80,6 @@ class LLMDataGenerator:
 
         os.makedirs(output_dir, exist_ok=True)
 
-        file_index = len(os.listdir(output_dir))
         generated = 0
 
         while generated < total_samples:
@@ -96,6 +95,7 @@ class LLMDataGenerator:
 
             exrtacted_json = extract_json(batch)
 
+            file_index = len(os.listdir(output_dir))
             file_path = os.path.join(
                 output_dir,
                 f"batch_{file_index:05d}.json",
@@ -105,6 +105,5 @@ class LLMDataGenerator:
                 json.dump(exrtacted_json, f, ensure_ascii=False, indent=2)
 
             generated += len(exrtacted_json)
-            file_index += 1
 
         print("[Generator] Generation completed.")
