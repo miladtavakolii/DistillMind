@@ -1,5 +1,11 @@
 Generate {n_samples} Persian samples for emotion classification.
 
+Distribution requirement:
+- 30% clear and obvious cases
+- 40% subtle and implicit cases
+- 30% hard boundary cases (emotion could be confused with another label but one is dominant)
+
+
 Target labels:
 - Withdrawal
 - fear
@@ -71,9 +77,68 @@ Text diversity requirements:
 - Some samples should express emotion subtly.
 - Avoid repeated scenarios or sentence openings.
 
+Advanced diversity constraints:
+
+Context diversity:
+Ensure variation in:
+- Age (teenager, university student, middle-aged employee, elderly)
+- Occupation (student, worker, freelancer, parent, unemployed, etc.)
+- Living situation (alone, with family, dorm, shared apartment)
+- Urban vs small-town settings
+- Online vs offline interactions
+
+Trigger diversity:
+For each label, use varied emotional triggers.
+Do NOT repeat the same trigger pattern.
+
+Expression diversity:
+- Some texts must express emotion explicitly.
+- Some texts must imply emotion only through behavior or tone.
+- Some texts must contain mixed emotions but one dominant label.
+
+Structural diversity:
+Include variation such as:
+- Short 1–2 sentence texts
+- Medium 3–5 sentence reflections
+- Longer paragraph-style thoughts
+- Dialogue format
+- Complaint-style message
+- Diary-style entry
+- Social media post tone
+- Formal tone
+- Casual chat tone
+
+Lexical diversity constraint:
+Avoid repeatedly using common emotional phrases such as:
+"می‌ترسم", "حوصله ندارم", "نمی‌خواهم", "استرس دارم"
+Use varied phrasing and synonyms.
+
+Hard case construction:
+
+For Withdrawal:
+- Some samples should contain mild worry but dominant social avoidance.
+- Avoid making them purely fear-driven.
+- Social disengagement must be the key signal.
+
+For fear:
+- Some samples may contain social interaction but strong internal anxiety.
+- Avoid including strong avoidance behavior.
+
+For other:
+- Some samples may include stress or irritation but without dominant fear.
+- Some samples may include anger mixed with social interaction.
+- Avoid accidental fear-like phrasing unless anxiety is dominant.
+
+
 Reason requirements:
 - Mention cues such as behavior, thoughts, avoidance, tone, or context.
 - Do not simply restate the label.
+
+Language requirements:
+- "text" must be written entirely in Persian.
+- "reason" must also be written entirely in Persian.
+- Do NOT use English words in the reason.
+- Do NOT mix languages.
 
 Output strictly as JSON array:
 [
