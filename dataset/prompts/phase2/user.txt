@@ -45,13 +45,15 @@ Texts that do not clearly express Withdrawal or fear.
 
 Typical examples include:
 - Neutral daily experiences
-- Happiness, sadness, anger, excitement, nostalgia, or mixed emotions
+- Anger, happiness, sadness, excitement, nostalgia, or mixed emotions
 - Descriptions without dominant fear or social avoidance
 - Normal social participation without avoidance signals
 
 Important notes:
 - Use this label only when fear or withdrawal cues are absent or weak.
 - If signals are ambiguous, prefer "other".
+- A significant portion of "other" samples should include anger or frustration.
+- Ensure that at least 40–50% of "other" samples contain anger or frustration-related content.
 
 
 Dataset requirements:
