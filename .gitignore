@@ -14,3 +14,4 @@ unsloth_compiled_cache
 data/generated
 .vscode
 outputs
+model
